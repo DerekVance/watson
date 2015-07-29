@@ -1,7 +1,24 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-image: url("images/image.jpg");
+  background-repeat: no-repeat;
 }
+
+.grid {
+  float: right;
+  margin-right: 20%;
+}
+
+.input {
+  margin-left: 10%;
+}
+
+html, body {
+           margin: 0px;
+           padding: 0px;
+           height: 100%;
+           width: 100%;
+
+       }
 
 a {
   color: #00B7FF;

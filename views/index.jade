@@ -1,5 +1,11 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  .grid
+      h1 Reddit User Personality Profile
+      form.input(action='/' method='get')
+        label
+          | Enter Username:
+          input(type='text', name='username')
+        button(type='submit') Run Profile
+  p
