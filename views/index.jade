@@ -3,9 +3,14 @@ extends layout
 block content
   .grid
       h1 Reddit User Personality Profile
-      form.input(action='/' method='get')
+      form.input(action='/watson' method='post')
         label
           | Enter Username:
           input(type='text', name='username')
         button(type='submit') Run Profile
-  p
+  p(id='personality' style='visibility: hidden;') #{bigFive}
+  p(id='traits' style='visibility: hidden;') #{traits}
+  canvas(id="myChart" width="400" height="400")
+  canvas(id="barChart" width="400" height="400")
+  script(src="javascripts/Chart.js/Chart.js")
+  script(src='javascripts/createChart.js')

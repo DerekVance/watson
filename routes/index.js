@@ -7,7 +7,13 @@ var watsonLib = require('../lib/watson')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  unirest.get('http://www.reddit.com/user/trampolice/comments.json')
+    res.render('index');
+  });
+
+router.post('/watson', function (req, res, next) {
+  var redditUser = req.body.username
+  console.log(redditUser);
+  unirest.get('http://www.reddit.com/user/'+redditUser+'/comments.json')
     .end(function (response) {
       var redditComments = '';
       var response_data = response.body
@@ -18,22 +24,45 @@ router.get('/', function(req, res, next) {
         .header('Content-Type', 'text/plain')
         .send(redditComments)
         .end(function (watsonResponse){
-            // console.log(watsonResponse);
-            var result = [];
-            var personality = watsonResponse.body.children[0].children[0].children[0].children;
+
+            // Big Five
+            var bigFive = '';
+            var openness = {};
+            var conscientiousness = {};
+            var extraversion = {};
+            var agreeableness = {};
+            var emotional = {};
+            var traits = [openness, conscientiousness, extraversion, agreeableness, emotional];
+            var personality = watsonResponse.body.children[0].children[0].children;
+
             for (var i = 0; i < personality.length; i++) {
-              var obj = {};
-              obj.label = personality[i].name;
-              obj.value = personality[i].percentage;
-              result.push(obj);
+              var labels = [];
+              var datas = [];
+              if(i === personality.length -1)
+                bigFive += personality[i].name + ' ' + personality[i].percentage.toFixed(2);
+              else
+                bigFive += personality[i].name + ' ' + personality[i].percentage.toFixed(2) + ',';
+              var start = personality[i];
+              // console.log(personality.length);
+              for (var j = 0; j <= 5; j++) {
+                labels.push(start.children[j].name)
+                datas.push(start.children[j].percentage)
+              }
+              traits[i].labels = labels;
+              traits[i].datasets = datas;
+              traits[i].bigF = personality[i].name;
+
             }
-        // var chart = new Chart(ctx).PolarArea(result, options);
-        //   document.getElementsByTagName('p').innerHTML = chart
+            // Children
+            // console.log(traits);
 
-        // console.log(watsonResponse.body);
+
+
+
+          // con    sole.log(children[0]);
+          res.render('index', {bigFive: bigFive, traits: JSON.stringify(traits) });
         })
-            res.render('index');
-    })
-  });
 
+    })
+})
 module.exports = router;
