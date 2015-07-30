@@ -8,9 +8,11 @@ block content
           | Enter Username:
           input(type='text', name='username')
         button(type='submit') Run Profile
+      h2.error= error
+  div.charts
+    canvas(id="myChart" width="400" height="400")
+    canvas(id="barChart" width="400" height="400")
   p(id='personality' style='visibility: hidden;') #{bigFive}
   p(id='traits' style='visibility: hidden;') #{traits}
-  canvas(id="myChart" width="400" height="400")
-  canvas(id="barChart" width="400" height="400")
   script(src="javascripts/Chart.js/Chart.js")
   script(src='javascripts/createChart.js')

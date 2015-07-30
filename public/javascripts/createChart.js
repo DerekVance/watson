@@ -13,7 +13,7 @@ var data = temp.map(function (index, i) {
     return {value: arr[1], color: colors[i], highlight: highlights[i] , label: arr[0]}
 });
 
-
+  console.log(data);
 var ctx1 = document.getElementById("myChart").getContext("2d");
 var myNewChart = new Chart(ctx1).PolarArea(data);
 
@@ -25,7 +25,8 @@ ctx1.canvas.addEventListener('mousedown', function (event) {
       if(cat.bigF == category)
         index += i;
     })
-    console.log(categories[index]);
+    console.log(category);
+    // console.log(categories[index]);
     var data2 = {
       labels: categories[index].labels,
       datasets: [
@@ -39,12 +40,13 @@ ctx1.canvas.addEventListener('mousedown', function (event) {
           }
       ]
     };
+    // console.log(data2);
     var ctx2 = document.getElementById('barChart').getContext("2d");
       ctx2.canvas.addEventListener('click', function () {
         myBarChart.destroy();
       })
 
-    var myBarChart = new Chart(ctx2).Bar(data2, {animation: false});
+    var myBarChart = new Chart(ctx2).Bar(data2);
 
 
 });
