@@ -48,7 +48,6 @@ router.post('/watson', function (req, res, next) {
                 else
                   bigFive += personality[i].name + ' ' + personality[i].percentage.toFixed(2) + ',';
                 var start = personality[i];
-                // console.log(personality.length);
                 for (var j = 0; j <= 5; j++) {
                   labels.push(start.children[j].name)
                   datas.push(start.children[j].percentage)
