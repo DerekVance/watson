@@ -61,13 +61,6 @@ router.post('/watson', function (req, res, next) {
                 traits[i].bigF = personality[i].name;
                 console.log(personality[i].name);
               }
-              // Children
-              // console.log(traits);
-
-
-
-
-            // con    sole.log(children[0]);
             res.render('index', {bigFive: bigFive, traits: JSON.stringify(traits) });
           })
       }
